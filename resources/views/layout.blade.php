@@ -1,68 +1,135 @@
 <!DOCTYPE html>
-<html>
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
-<title>HoopBook</title>
-<style>
-* { margin:0; padding:0; box-sizing:border-box; font-family:Arial; }
-body { display:flex; background:#F5F6FA; }
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 
-.sidebar {
-    position:fixed; left:0; top:0;
-    width:220px; height:100vh;
-    background:#071733; padding:20px;
-    overflow:auto; display:flex;
-    flex-direction:column;
-}
+    <title>{{ config('app.name', 'HoopBook') }} - {{ $title ?? 'Booking Lapangan Basket' }}</title>
 
-.logo { color:white; font-size:22px; font-weight:bold; margin-bottom:30px; }
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.bunny.net">
+    <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
 
-.sidebar a {
-    display:block; padding:12px 15px;
-    margin-bottom:5px; color:white;
-    text-decoration:none; border-radius:10px;
-    font-size:14px;
-}
-
-.sidebar a:hover, .sidebar a.active { background:#ff7300; }
-
-.logout-btn {
-    margin-top:auto; width:100%;
-    padding:12px 15px; background:none;
-    color:#ff4444; border:1px solid #ff4444;
-    border-radius:10px; cursor:pointer;
-    font-size:14px; text-align:left;
-}
-.logout-btn:hover { background:#ff4444; color:white; }
-
-.content { margin-left:220px; padding:30px; flex:1; }
-</style>
+    <!-- Scripts -->
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
-<body>
+<body class="font-sans antialiased">
+    <div class="min-h-screen bg-gray-100">
+        <!-- Sidebar Navigation -->
+        <aside class="fixed inset-y-0 left-0 w-64 bg-slate-900 text-white overflow-y-auto">
+            <!-- Logo -->
+            <div class="p-6 border-b border-slate-700">
+                <a href="{{ route('dashboard') }}" class="flex items-center gap-3">
+                    <span class="text-4xl">🏀</span>
+                    <div>
+                        <h1 class="text-2xl font-bold text-orange-500">HoopBook</h1>
+                        <p class="text-xs text-gray-400">Booking Lapangan Basket</p>
+                    </div>
+                </a>
+            </div>
 
-<div class="sidebar">
-    <div class="logo">🏀 HoopBook</div>
+            <!-- Navigation Menu -->
+            <nav class="mt-6 px-3 space-y-2">
+                <a href="{{ route('dashboard') }}" 
+                   class="flex items-center gap-3 px-4 py-3 rounded-lg transition {{ request()->routeIs('dashboard') ? 'bg-orange-500 text-white' : 'text-gray-300 hover:bg-slate-800' }}">
+                    <span>📊</span>
+                    <span>Dashboard</span>
+                </a>
 
-    <a href="/" class="{{ request()->is('/') ? 'active' : '' }}">Dashboard</a>
-    <a href="/cari-lapangan" class="{{ request()->is('cari-lapangan') ? 'active' : '' }}">Cari Lapangan</a>
-    <a href="/booking-saya" class="{{ request()->is('booking-saya') ? 'active' : '' }}">Booking Saya</a>
-    <a href="/kalender" class="{{ request()->is('kalender') ? 'active' : '' }}">Kalender</a>
-    <a href="/pembayaran" class="{{ request()->is('pembayaran') ? 'active' : '' }}">Pembayaran</a>
-    <a href="/promo" class="{{ request()->is('promo') ? 'active' : '' }}">Promo</a>
-    <a href="/favorit" class="{{ request()->is('favorit') ? 'active' : '' }}">Favorit</a>
-    <a href="/ulasan" class="{{ request()->is('ulasan') ? 'active' : '' }}">Ulasan</a>
-    <a href="/pesan" class="{{ request()->is('pesan') ? 'active' : '' }}">Pesan</a>
-    <a href="/pengaturan" class="{{ request()->is('pengaturan') ? 'active' : '' }}">Pengaturan</a>
-    <a href="/bantuan" class="{{ request()->is('bantuan') ? 'active' : '' }}">Bantuan</a>
+                <a href="{{ route('cari.lapangan') }}" 
+                   class="flex items-center gap-3 px-4 py-3 rounded-lg transition {{ request()->routeIs('cari.lapangan') ? 'bg-orange-500 text-white' : 'text-gray-300 hover:bg-slate-800' }}">
+                    <span>🔍</span>
+                    <span>Cari Lapangan</span>
+                </a>
 
-    <form method="POST" action="{{ route('logout') }}" style="margin-top:auto;">
-        @csrf
-        <button type="submit" class="logout-btn">🚪 Log Out</button>
-    </form>
-</div>
+                <a href="{{ route('pesan') }}" 
+                   class="flex items-center gap-3 px-4 py-3 rounded-lg transition {{ request()->routeIs('pesan') || request()->routeIs('booking.saya') ? 'bg-orange-500 text-white' : 'text-gray-300 hover:bg-slate-800' }}">
+                    <span>📅</span>
+                    <span>Booking Saya</span>
+                </a>
 
-<div class="content">
-    @yield('content')
-</div>
+                <a href="{{ route('kalender') }}" 
+                   class="flex items-center gap-3 px-4 py-3 rounded-lg transition {{ request()->routeIs('kalender') ? 'bg-orange-500 text-white' : 'text-gray-300 hover:bg-slate-800' }}">
+                    <span>📆</span>
+                    <span>Kalender</span>
+                </a>
 
+                <a href="{{ route('pembayaran') }}" 
+                   class="flex items-center gap-3 px-4 py-3 rounded-lg transition {{ request()->routeIs('pembayaran') ? 'bg-orange-500 text-white' : 'text-gray-300 hover:bg-slate-800' }}">
+                    <span>💳</span>
+                    <span>Pembayaran</span>
+                </a>
+
+                <a href="{{ route('promo') }}" 
+                   class="flex items-center gap-3 px-4 py-3 rounded-lg transition {{ request()->routeIs('promo') ? 'bg-orange-500 text-white' : 'text-gray-300 hover:bg-slate-800' }}">
+                    <span>🎁</span>
+                    <span>Promo</span>
+                </a>
+
+                <a href="{{ route('favorit') }}" 
+                   class="flex items-center gap-3 px-4 py-3 rounded-lg transition {{ request()->routeIs('favorit') ? 'bg-orange-500 text-white' : 'text-gray-300 hover:bg-slate-800' }}">
+                    <span>❤️</span>
+                    <span>Favorit</span>
+                </a>
+
+                <a href="{{ route('ulasan') }}" 
+                   class="flex items-center gap-3 px-4 py-3 rounded-lg transition {{ request()->routeIs('ulasan') ? 'bg-orange-500 text-white' : 'text-gray-300 hover:bg-slate-800' }}">
+                    <span>⭐</span>
+                    <span>Ulasan</span>
+                </a>
+
+                <a href="{{ route('pengaturan') }}" 
+                   class="flex items-center gap-3 px-4 py-3 rounded-lg transition {{ request()->routeIs('pengaturan') ? 'bg-orange-500 text-white' : 'text-gray-300 hover:bg-slate-800' }}">
+                    <span>⚙️</span>
+                    <span>Pengaturan</span>
+                </a>
+
+                <a href="{{ route('bantuan') }}" 
+                   class="flex items-center gap-3 px-4 py-3 rounded-lg transition {{ request()->routeIs('bantuan') ? 'bg-orange-500 text-white' : 'text-gray-300 hover:bg-slate-800' }}">
+                    <span>❓</span>
+                    <span>Bantuan</span>
+                </a>
+            </nav>
+
+            <!-- Logout Button -->
+            <div class="absolute bottom-0 left-0 right-0 p-3 border-t border-slate-700">
+                <form method="POST" action="{{ route('logout') }}">
+                    @csrf
+                    <button type="submit" 
+                            class="w-full flex items-center gap-3 px-4 py-3 rounded-lg transition text-red-400 hover:bg-red-900 hover:text-white">
+                        <span>🚪</span>
+                        <span>Log Out</span>
+                    </button>
+                </form>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <div class="pl-64">
+            <!-- Top Bar -->
+            <header class="bg-white shadow-sm">
+                <div class="px-6 py-4 flex items-center justify-between">
+                    <h2 class="text-2xl font-bold text-gray-800">{{ $header ?? 'Dashboard' }}</h2>
+                    <div class="flex items-center gap-4">
+                        <div class="text-right">
+                            <p class="font-semibold text-gray-800">{{ Auth::user()->name }}</p>
+                            <p class="text-sm text-gray-500">{{ Auth::user()->email }}</p>
+                        </div>
+                        <div class="w-10 h-10 bg-orange-500 rounded-full flex items-center justify-center text-white font-bold">
+                            {{ substr(Auth::user()->name, 0, 1) }}
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Page Content -->
+            <main>
+                {{ $slot }}
+            </main>
+        </div>
+    </div>
+
+    @stack('scripts')
 </body>
 </html>
