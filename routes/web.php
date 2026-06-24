@@ -1,33 +1,33 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\HoopBookController;
+use Illuminate\Support\Facades\Route;
 
-// AUTH ROUTES (login, register, dll)
-require __DIR__.'/auth.php';
-
-// PROTECTED ROUTES (Hanya bisa diakses jika sudah login)
-Route::middleware(['auth'])->group(function () {
-
-    // Rute utama (root) sebagai Dashboard
-    Route::get('/', [HoopBookController::class, 'dashboard'])->name('dashboard');
-    
-    // Tambahan: Rute eksplisit agar tidak terjadi 404 saat redirect ke /dashboard
-    Route::get('/dashboard', [HoopBookController::class, 'dashboard']);
-
-    // MENU SIDEBAR
-    Route::view('/cari-lapangan', 'cari')->name('menu.cari');
-    Route::view('/booking-saya', 'booking')->name('menu.booking');
-    Route::view('/kalender', 'kalender')->name('menu.kalender');
-    Route::view('/pembayaran', 'pembayaran')->name('menu.pembayaran');
-    Route::view('/promo', 'promo')->name('menu.promo');
-    Route::view('/favorit', 'favorit')->name('menu.favorit');
-    Route::view('/ulasan', 'ulasan')->name('menu.ulasan');
-    Route::view('/pesan', 'pesan')->name('menu.pesan');
-    Route::view('/pengaturan', 'pengaturan')->name('menu.pengaturan');
-    Route::view('/bantuan', 'bantuan')->name('menu.bantuan');
-
-    // DATABASE ACTION
-    Route::post('/lapangan/store', [HoopBookController::class, 'storeLapangan'])->name('lapangan.store');
-    Route::delete('/lapangan/destroy/{id}', [HoopBookController::class, 'destroyLapangan'])->name('lapangan.destroy');
+Route::get('/', function () {
+    return view('welcome');
 });
+
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->middleware(['auth', 'verified'])->name('dashboard');
+
+Route::middleware('auth')->group(function () {
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    
+    // MENU SIDEBAR - PASTIKAN SEMUA ADA
+    Route::get('/cari-lapangan', [HoopBookController::class, 'cari'])->name('cari.lapangan');
+    Route::get('/booking-saya', [HoopBookController::class, 'bookingSaya'])->name('booking.saya');
+    Route::get('/kalender', [HoopBookController::class, 'kalender'])->name('kalender');
+    Route::get('/pembayaran', [HoopBookController::class, 'pembayaran'])->name('pembayaran');
+    Route::get('/promo', [HoopBookController::class, 'promo'])->name('promo');
+    Route::get('/favorit', [HoopBookController::class, 'favorit'])->name('favorit');
+    Route::get('/ulasan', [HoopBookController::class, 'ulasan'])->name('ulasan');
+    Route::get('/pesan', [HoopBookController::class, 'pesan'])->name('pesan');
+    Route::get('/pengaturan', [HoopBookController::class, 'pengaturan'])->name('pengaturan');
+    Route::get('/bantuan', [HoopBookController::class, 'bantuan'])->name('bantuan');
+});
+
+require __DIR__.'/auth.php';

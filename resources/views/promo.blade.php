@@ -1,54 +1,31 @@
-@extends('layout')
-@section('content')
-<style>
-.page{padding:30px;}
-.title{font-size:40px;font-weight:bold;margin-bottom:20px;}
-.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:20px;}
-.promo-card{background:white;border-radius:20px;overflow:hidden;box-shadow:0 4px 12px rgba(0,0,0,0.08);}
-.promo-banner{height:120px;display:flex;align-items:center;justify-content:center;font-size:50px;}
-.promo-body{padding:20px;}
-.promo-body h4{font-size:18px;font-weight:bold;}
-.promo-body p{color:#888;font-size:13px;margin:8px 0;}
-.promo-code{background:#fff3e0;border:2px dashed #ff7300;border-radius:10px;padding:10px;text-align:center;font-weight:bold;color:#ff7300;font-size:16px;margin:12px 0;}
-.promo-body .exp{font-size:12px;color:#aaa;}
-.btn{width:100%;padding:12px;background:#ff7300;color:white;border:none;border-radius:10px;font-size:15px;cursor:pointer;}
-</style>
-<div class="page">
-    <div class="title">Promo</div>
-    <div class="grid">
-        <div class="promo-card">
-            <div class="promo-banner" style="background:linear-gradient(135deg,#ff7300,#ff9500);">🎉</div>
-            <div class="promo-body">
-                <h4>Diskon 20% Booking Pertama</h4>
-                <p>Dapatkan diskon 20% untuk booking pertama kamu!</p>
-                <div class="promo-code">NEWUSER20</div>
-                <div class="exp">Berlaku hingga 31 Juli 2026</div>
-                <br>
-                <button class="btn">Pakai Promo</button>
-            </div>
-        </div>
-        <div class="promo-card">
-            <div class="promo-banner" style="background:linear-gradient(135deg,#071733,#1a3a6a);">🏀</div>
-            <div class="promo-body">
-                <h4>Weekend Special 15%</h4>
-                <p>Booking di akhir pekan dan hemat 15%!</p>
-                <div class="promo-code">WEEKEND15</div>
-                <div class="exp">Berlaku hingga 31 Agustus 2026</div>
-                <br>
-                <button class="btn">Pakai Promo</button>
-            </div>
-        </div>
-        <div class="promo-card">
-            <div class="promo-banner" style="background:linear-gradient(135deg,#1db389,#0f6e56);">⚡</div>
-            <div class="promo-body">
-                <h4>Flash Sale 30%</h4>
-                <p>Flash sale terbatas! Hemat 30% hari ini saja.</p>
-                <div class="promo-code">FLASH30</div>
-                <div class="exp">Berlaku hingga 22 Juni 2026</div>
-                <br>
-                <button class="btn">Pakai Promo</button>
+<x-app-layout>
+    <x-slot name="header">
+        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+            {{ __('Promo & Diskon') }}
+        </h2>
+    </x-slot>
+
+    <div class="py-12">
+        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
+                <div class="p-6 text-gray-900">
+                    <h3 class="text-lg font-bold mb-4">Promo Tersedia</h3>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div class="bg-gradient-to-r from-orange-400 to-red-500 text-white p-6 rounded-lg">
+                            <h4 class="text-xl font-bold">Diskon 20%</h4>
+                            <p class="mt-2">Untuk booking pertama kali</p>
+                            <p class="mt-4 text-sm">Kode: NEWUSER20</p>
+                        </div>
+                        
+                        <div class="bg-gradient-to-r from-blue-400 to-purple-500 text-white p-6 rounded-lg">
+                            <h4 class="text-xl font-bold">Cashback 10%</h4>
+                            <p class="mt-2">Setiap booking di weekend</p>
+                            <p class="mt-4 text-sm">Kode: WEEKEND10</p>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
-</div>
-@endsection
+</x-app-layout>

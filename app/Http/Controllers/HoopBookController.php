@@ -3,34 +3,69 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Field;
+use App\Models\User;
 
 class HoopBookController extends Controller
 {
-    // DASHBOARD
-    public function dashboard()
+    // Cari Lapangan
+    public function cari()
     {
-        return view('dashboard');
+        $lapangan = Field::all();
+        return view('cari', compact('lapangan'));
     }
 
-    // SIMPAN LAPANGAN
-    public function storeLapangan(Request $request)
+    // Booking Saya
+    public function bookingSaya()
     {
-        return redirect()
-            ->back()
-            ->with(
-                'success',
-                'Lapangan berhasil ditambahkan'
-            );
+        return view('pesan'); // Menggunakan view pesan untuk daftar booking
     }
 
-    // HAPUS LAPANGAN
-    public function destroyLapangan($id)
+    // Kalender
+    public function kalender()
     {
-        return redirect()
-            ->back()
-            ->with(
-                'success',
-                'Lapangan berhasil dihapus'
-            );
+        return view('kalender');
+    }
+
+    // Pembayaran
+    public function pembayaran()
+    {
+        return view('pembayaran');
+    }
+
+    // Promo
+    public function promo()
+    {
+        return view('promo');
+    }
+
+    // Favorit
+    public function favorit()
+    {
+        return view('favorit');
+    }
+
+    // Ulasan
+    public function ulasan()
+    {
+        return view('ulasan');
+    }
+
+    // Pesan
+    public function pesan()
+    {
+        return view('pesan');
+    }
+
+    // Pengaturan
+    public function pengaturan()
+    {
+        return view('pengaturan');
+    }
+
+    // Bantuan
+    public function bantuan()
+    {
+        return view('bantuan');
     }
 }

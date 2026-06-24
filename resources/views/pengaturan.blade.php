@@ -1,71 +1,44 @@
-@extends('layout')
-@section('content')
-<style>
-.page{padding:30px;}
-.title{font-size:40px;font-weight:bold;margin-bottom:20px;}
-.card{background:white;border-radius:20px;padding:24px;margin-bottom:20px;box-shadow:0 4px 12px rgba(0,0,0,0.08);}
-.card h3{font-size:18px;font-weight:bold;margin-bottom:20px;border-bottom:1px solid #eee;padding-bottom:12px;}
-.form-group{margin-bottom:16px;}
-.form-group label{display:block;font-size:14px;color:#555;margin-bottom:6px;font-weight:bold;}
-.form-group input{width:100%;padding:12px;border-radius:10px;border:1px solid #ddd;font-size:14px;}
-.form-group input:focus{outline:none;border-color:#ff7300;}
-.toggle-row{display:flex;justify-content:space-between;align-items:center;padding:14px 0;border-bottom:1px solid #f0f0f0;}
-.toggle-row span{font-size:14px;color:#333;}
-.toggle{width:44px;height:24px;background:#ff7300;border-radius:12px;position:relative;cursor:pointer;}
-.toggle::after{content:'';position:absolute;width:18px;height:18px;background:white;border-radius:50%;top:3px;right:3px;}
-.btn-save{background:#ff7300;color:white;border:none;padding:12px 32px;border-radius:12px;font-size:15px;cursor:pointer;margin-top:8px;}
-.btn-danger{background:#ffebee;color:#c62828;border:none;padding:12px 32px;border-radius:12px;font-size:15px;cursor:pointer;}
-</style>
-<div class="page">
-    <div class="title">Pengaturan</div>
-    <div class="card">
-        <h3>👤 Profil Saya</h3>
-        <div class="form-group">
-            <label>Nama Lengkap</label>
-            <input type="text" value="Admin">
-        </div>
-        <div class="form-group">
-            <label>Email</label>
-            <input type="email" value="admin@hoopbook.com">
-        </div>
-        <div class="form-group">
-            <label>No. Telepon</label>
-            <input type="text" placeholder="+62 ...">
-        </div>
-        <button class="btn-save">Simpan Perubahan</button>
-    </div>
-    <div class="card">
-        <h3>🔔 Notifikasi</h3>
-        <div class="toggle-row">
-            <span>Notifikasi Booking</span>
-            <div class="toggle"></div>
-        </div>
-        <div class="toggle-row">
-            <span>Notifikasi Promo</span>
-            <div class="toggle"></div>
-        </div>
-        <div class="toggle-row">
-            <span>Notifikasi Pesan</span>
-            <div class="toggle"></div>
+<x-app-layout>
+    <x-slot name="header">
+        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+            {{ __('Pengaturan Akun') }}
+        </h2>
+    </x-slot>
+
+    <div class="py-12">
+        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
+                <div class="p-6 text-gray-900">
+                    <h3 class="text-lg font-bold mb-4">Pengaturan Profil</h3>
+                    
+                    <form method="POST" action="{{ route('profile.update') }}" class="space-y-4">
+                        @csrf
+                        @method('PATCH')
+                        
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700">Nama</label>
+                            <input type="text" name="name" value="{{ Auth::user()->name }}" 
+                                   class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-orange-500 focus:ring-orange-500">
+                        </div>
+                        
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700">Email</label>
+                            <input type="email" name="email" value="{{ Auth::user()->email }}" 
+                                   class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-orange-500 focus:ring-orange-500">
+                        </div>
+                        
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700">Nomor Telepon</label>
+                            <input type="tel" name="phone" placeholder="08123456789" 
+                                   class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-orange-500 focus:ring-orange-500">
+                        </div>
+                        
+                        <button type="submit" class="bg-orange-500 text-white px-6 py-2 rounded hover:bg-orange-600">
+                            Simpan Perubahan
+                        </button>
+                    </form>
+                </div>
+            </div>
         </div>
     </div>
-    <div class="card">
-        <h3>🔒 Keamanan</h3>
-        <div class="form-group">
-            <label>Password Lama</label>
-            <input type="password" placeholder="••••••••">
-        </div>
-        <div class="form-group">
-            <label>Password Baru</label>
-            <input type="password" placeholder="••••••••">
-        </div>
-        <div class="form-group">
-            <label>Konfirmasi Password</label>
-            <input type="password" placeholder="••••••••">
-        </div>
-        <button class="btn-save">Ubah Password</button>
-        &nbsp;
-        <button class="btn-danger">Hapus Akun</button>
-    </div>
-</div>
-@endsection
+</x-app-layout>
