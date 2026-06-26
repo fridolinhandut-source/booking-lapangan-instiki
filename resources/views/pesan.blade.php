@@ -1,125 +1,68 @@
-<x-app-layout>
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Booking Saya') }}
-        </h2>
-    </x-slot>
+@extends('layout')
 
-    <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="p-6 text-gray-900">
-                    <h3 class="text-lg font-bold mb-6">Daftar Booking Anda</h3>
-                    
-                    <!-- Tab Filter -->
-                    <div class="flex gap-4 mb-6 border-b">
-                        <button class="px-4 py-2 border-b-2 border-orange-500 text-orange-600 font-semibold">
-                            Semua Booking
-                        </button>
-                        <button class="px-4 py-2 text-gray-600 hover:text-orange-600">
-                            Aktif
-                        </button>
-                        <button class="px-4 py-2 text-gray-600 hover:text-orange-600">
-                            Selesai
-                        </button>
-                        <button class="px-4 py-2 text-gray-600 hover:text-orange-600">
-                            Dibatalkan
-                        </button>
+@section('title', 'Pesan')
+@section('page_title', 'Pesan')
+
+@section('content')
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    @if(session('success'))
+    <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded-lg mb-6">
+        ✓ {{ session('success') }}
+    </div>
+    @endif
+
+    <div class="bg-white rounded-2xl shadow-sm p-6">
+        <div class="flex justify-between items-center mb-6">
+            <h3 class="text-xl font-bold text-gray-900">Kotak Masuk</h3>
+            <button onclick="alert('Fitur pesan baru')" class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 font-semibold">+ Pesan Baru</button>
+        </div>
+        
+        <div class="space-y-3">
+            <div class="border border-gray-200 rounded-xl p-4 hover:shadow-md transition cursor-pointer bg-blue-50">
+                <div class="flex justify-between items-start">
+                    <div class="flex-1">
+                        <div class="flex items-center gap-2 mb-2">
+                            <h4 class="font-bold text-gray-900">Admin INSTIKI</h4>
+                            <span class="bg-blue-600 text-white text-xs px-2 py-1 rounded-full">Baru</span>
+                        </div>
+                        <p class="font-semibold text-gray-800 mb-1">Konfirmasi Booking Anda</p>
+                        <p class="text-sm text-gray-600">Terima kasih! Booking lapangan Anda untuk tanggal 25 Juni 2026 telah dikonfirmasi...</p>
                     </div>
-                    
-                    <div class="space-y-4">
-                        <!-- Booking 1 -->
-                        <div class="border rounded-lg p-6 hover:shadow-lg transition">
-                            <div class="flex justify-between items-start mb-4">
-                                <div>
-                                    <h4 class="font-bold text-xl mb-2">Giant Arena Court</h4>
-                                    <p class="text-gray-600">📍 Jakarta Selatan</p>
-                                    <p class="text-gray-600 mt-2">📅 Sabtu, 25 Juni 2026</p>
-                                    <p class="text-gray-600">⏰ 14:00 - 16:00 WIB (2 jam)</p>
-                                    <p class="text-gray-600">👤 Atas nama: {{ Auth::user()->name }}</p>
-                                </div>
-                                <span class="bg-green-100 text-green-800 px-4 py-2 rounded-full font-semibold">
-                                    ✓ Dikonfirmasi
-                                </span>
-                            </div>
-                            <div class="flex justify-between items-center pt-4 border-t">
-                                <div>
-                                    <p class="text-gray-600 text-sm">Total Pembayaran</p>
-                                    <p class="text-2xl font-bold text-orange-600">Rp 300.000</p>
-                                </div>
-                                <div class="flex gap-2">
-                                    <button class="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 font-semibold">
-                                        Detail
-                                    </button>
-                                    <button class="bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600 font-semibold">
-                                        Batalkan
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
+                    <div class="text-right">
+                        <p class="text-xs text-gray-500">10:30</p>
+                        <button onclick="event.stopPropagation(); if(confirm('Hapus pesan ini?')) { alert('Pesan dihapus!'); this.closest('.border').remove(); }" class="mt-2 text-red-500 hover:text-red-700 text-sm">Hapus</button>
+                    </div>
+                </div>
+            </div>
 
-                        <!-- Booking 2 -->
-                        <div class="border rounded-lg p-6 hover:shadow-lg transition">
-                            <div class="flex justify-between items-start mb-4">
-                                <div>
-                                    <h4 class="font-bold text-xl mb-2">Basket Zone</h4>
-                                    <p class="text-gray-600">📍 Jakarta Pusat</p>
-                                    <p class="text-gray-600 mt-2">📅 Minggu, 27 Juni 2026</p>
-                                    <p class="text-gray-600">⏰ 10:00 - 12:00 WIB (2 jam)</p>
-                                    <p class="text-gray-600">👤 Atas nama: {{ Auth::user()->name }}</p>
-                                </div>
-                                <span class="bg-yellow-100 text-yellow-800 px-4 py-2 rounded-full font-semibold">
-                                    ⏳ Menunggu Konfirmasi
-                                </span>
-                            </div>
-                            <div class="flex justify-between items-center pt-4 border-t">
-                                <div>
-                                    <p class="text-gray-600 text-sm">Total Pembayaran</p>
-                                    <p class="text-2xl font-bold text-orange-600">Rp 240.000</p>
-                                </div>
-                                <div class="flex gap-2">
-                                    <button class="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 font-semibold">
-                                        Detail
-                                    </button>
-                                    <button class="bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600 font-semibold">
-                                        Batalkan
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
+            <div class="border border-gray-200 rounded-xl p-4 hover:shadow-md transition cursor-pointer">
+                <div class="flex justify-between items-start">
+                    <div class="flex-1">
+                        <h4 class="font-bold text-gray-900 mb-2">Promo Spesial</h4>
+                        <p class="font-semibold text-gray-800 mb-1">Diskon 20% Weekend Ini!</p>
+                        <p class="text-sm text-gray-600">Dapatkan diskon 20% untuk booking lapangan di weekend ini. Gunakan kode WEEKEND20...</p>
+                    </div>
+                    <div class="text-right">
+                        <p class="text-xs text-gray-500">Kemarin</p>
+                        <button onclick="event.stopPropagation(); if(confirm('Hapus pesan ini?')) { alert('Pesan dihapus!'); this.closest('.border').remove(); }" class="mt-2 text-red-500 hover:text-red-700 text-sm">Hapus</button>
+                    </div>
+                </div>
+            </div>
 
-                        <!-- Booking 3 (Selesai) -->
-                        <div class="border rounded-lg p-6 hover:shadow-lg transition opacity-75">
-                            <div class="flex justify-between items-start mb-4">
-                                <div>
-                                    <h4 class="font-bold text-xl mb-2">Champion Court</h4>
-                                    <p class="text-gray-600">📍 Jakarta Barat</p>
-                                    <p class="text-gray-600 mt-2">📅 Minggu, 15 Juni 2026</p>
-                                    <p class="text-gray-600">⏰ 16:00 - 18:00 WIB (2 jam)</p>
-                                    <p class="text-gray-600">👤 Atas nama: {{ Auth::user()->name }}</p>
-                                </div>
-                                <span class="bg-gray-100 text-gray-800 px-4 py-2 rounded-full font-semibold">
-                                    Selesai
-                                </span>
-                            </div>
-                            <div class="flex justify-between items-center pt-4 border-t">
-                                <div>
-                                    <p class="text-gray-600 text-sm">Total Pembayaran</p>
-                                    <p class="text-2xl font-bold text-orange-600">Rp 360.000</p>
-                                </div>
-                                <div class="flex gap-2">
-                                    <button class="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 font-semibold">
-                                        Detail
-                                    </button>
-                                    <a href="{{ route('ulasan') }}" class="bg-orange-500 text-white px-4 py-2 rounded-lg hover:bg-orange-600 font-semibold">
-                                        Beri Ulasan
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
+            <div class="border border-gray-200 rounded-xl p-4 hover:shadow-md transition cursor-pointer">
+                <div class="flex justify-between items-start">
+                    <div class="flex-1">
+                        <h4 class="font-bold text-gray-900 mb-2">Sistem</h4>
+                        <p class="font-semibold text-gray-800 mb-1">Pembayaran Berhasil</p>
+                        <p class="text-sm text-gray-600">Pembayaran Anda sebesar Rp 150.000 telah berhasil diproses...</p>
+                    </div>
+                    <div class="text-right">
+                        <p class="text-xs text-gray-500">2 hari lalu</p>
+                        <button onclick="event.stopPropagation(); if(confirm('Hapus pesan ini?')) { alert('Pesan dihapus!'); this.closest('.border').remove(); }" class="mt-2 text-red-500 hover:text-red-700 text-sm">Hapus</button>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</x-app-layout>
+</div>
+@endsection

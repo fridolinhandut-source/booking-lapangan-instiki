@@ -1,229 +1,106 @@
-<!DOCTYPE html>
-<html lang="id">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kalender - HoopBook</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-</head>
-<body class="bg-gray-100 font-sans">
-<div class="flex min-h-screen">
-    @include('layouts.sidebar')
-    <main class="flex-1 ml-64 p-8">
+@extends('layout')
+
+@section('title', 'Kalender')
+@section('page_title', 'Kalender Booking')
+
+@section('content')
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    @if(session('success'))
+    <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded-lg mb-6">
+        ✓ {{ session('success') }}
+    </div>
+    @endif
+
+    <div class="bg-white rounded-2xl shadow-sm p-6 mb-6">
         <div class="flex justify-between items-center mb-6">
-            <h1 class="text-3xl font-bold text-gray-900">Kalender Booking</h1>
+            <h3 class="text-xl font-bold text-gray-900">Juni 2026</h3>
             <div class="flex gap-2">
-                <button onclick="changeMonth(-1)" class="px-4 py-2 bg-white border border-gray-300 rounded-lg hover:bg-gray-50">
-                    <i class="fa-solid fa-chevron-left"></i>
-                </button>
-                <span id="currentMonth" class="px-6 py-2 bg-white border border-gray-300 rounded-lg font-semibold">Juni 2024</span>
-                <button onclick="changeMonth(1)" class="px-4 py-2 bg-white border border-gray-300 rounded-lg hover:bg-gray-50">
-                    <i class="fa-solid fa-chevron-right"></i>
-                </button>
-                <button onclick="openAddEventModal()" class="px-6 py-2 bg-orange-500 text-white rounded-lg hover:bg-orange-600 ml-4">
-                    <i class="fa-solid fa-plus mr-2"></i>Tambah Event
-                </button>
+                <button onclick="alert('Bulan sebelumnya')" class="px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50">← Sebelumnya</button>
+                <button onclick="alert('Bulan berikutnya')" class="px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50">Berikutnya →</button>
             </div>
         </div>
 
-        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-            <!-- Calendar Grid -->
-            <div class="lg:col-span-2 bg-white rounded-2xl p-6 shadow-sm">
-                <div class="grid grid-cols-7 gap-2 mb-4">
-                    <div class="text-center text-sm font-semibold text-gray-500 py-2">Min</div>
-                    <div class="text-center text-sm font-semibold text-gray-500 py-2">Sen</div>
-                    <div class="text-center text-sm font-semibold text-gray-500 py-2">Sel</div>
-                    <div class="text-center text-sm font-semibold text-gray-500 py-2">Rab</div>
-                    <div class="text-center text-sm font-semibold text-gray-500 py-2">Kam</div>
-                    <div class="text-center text-sm font-semibold text-gray-500 py-2">Jum</div>
-                    <div class="text-center text-sm font-semibold text-gray-500 py-2">Sab</div>
+        <div class="grid grid-cols-7 gap-2 mb-2">
+            <div class="text-center font-bold text-gray-700 py-2">Min</div>
+            <div class="text-center font-bold text-gray-700 py-2">Sen</div>
+            <div class="text-center font-bold text-gray-700 py-2">Sel</div>
+            <div class="text-center font-bold text-gray-700 py-2">Rab</div>
+            <div class="text-center font-bold text-gray-700 py-2">Kam</div>
+            <div class="text-center font-bold text-gray-700 py-2">Jum</div>
+            <div class="text-center font-bold text-gray-700 py-2">Sab</div>
+        </div>
+
+        <div class="grid grid-cols-7 gap-2">
+            @for($i = 1; $i <= 30; $i++)
+            @php
+                $hasBooking = in_array($i, [15, 20, 25]);
+                $isToday = $i == 26;
+            @endphp
+            <div class="border border-gray-200 rounded-lg p-3 min-h-[80px] {{ $isToday ? 'bg-blue-50 border-blue-500' : 'hover:bg-gray-50' }} cursor-pointer" onclick="alert('Tanggal {{ $i }} Juni 2026{{ $hasBooking ? ' - Ada booking!' : '' }}')">
+                <div class="font-semibold {{ $isToday ? 'text-blue-600' : 'text-gray-700' }}">{{ $i }}</div>
+                @if($hasBooking)
+                <div class="mt-1 text-xs bg-orange-500 text-white px-2 py-1 rounded">Booking</div>
+                @endif
+            </div>
+            @endfor
+        </div>
+    </div>
+
+    <div class="bg-white rounded-2xl shadow-sm p-6">
+        <h3 class="text-xl font-bold mb-6 text-gray-900">Jadwal Booking Bulan Ini</h3>
+        
+        <div class="space-y-3">
+            <div class="flex items-center justify-between p-4 border border-gray-200 rounded-lg">
+                <div class="flex items-center gap-4">
+                    <div class="w-12 h-12 bg-orange-500 text-white rounded-lg flex flex-col items-center justify-center">
+                        <span class="text-xs">Jun</span>
+                        <span class="font-bold">15</span>
+                    </div>
+                    <div>
+                        <p class="font-semibold">Lapangan Basket A</p>
+                        <p class="text-sm text-gray-500">10:00 - 11:00</p>
+                    </div>
                 </div>
-                <div class="grid grid-cols-7 gap-2" id="calendarGrid">
-                    <!-- Generated by JavaScript -->
+                <div class="flex gap-2">
+                    <button onclick="alert('Edit booking')" class="bg-blue-600 text-white px-3 py-1 rounded hover:bg-blue-700 text-sm">Edit</button>
+                    <button onclick="if(confirm('Batalkan booking?')) { alert('Booking dibatalkan!'); this.closest('.flex').remove(); }" class="bg-red-600 text-white px-3 py-1 rounded hover:bg-red-700 text-sm">Batal</button>
                 </div>
             </div>
 
-            <!-- Upcoming Events -->
-            <div class="bg-white rounded-2xl p-6 shadow-sm">
-                <h3 class="text-lg font-bold text-gray-900 mb-4">Jadwal Mendatang</h3>
-                <div class="space-y-4" id="eventsList">
-                    <div class="border-l-4 border-orange-500 pl-4 py-2 relative group">
-                        <button onclick="deleteEvent(this)" class="absolute top-2 right-2 text-gray-400 hover:text-red-500 opacity-0 group-hover:opacity-100 transition">
-                            <i class="fa-solid fa-trash"></i>
-                        </button>
-                        <p class="text-xs text-gray-500">23 Juni 2024 • 16:00</p>
-                        <p class="font-bold text-gray-900">Giant Arena Court</p>
-                        <p class="text-sm text-gray-600">Lapangan 1 • 2 Jam</p>
+            <div class="flex items-center justify-between p-4 border border-gray-200 rounded-lg">
+                <div class="flex items-center gap-4">
+                    <div class="w-12 h-12 bg-orange-500 text-white rounded-lg flex flex-col items-center justify-center">
+                        <span class="text-xs">Jun</span>
+                        <span class="font-bold">20</span>
                     </div>
-                    <div class="border-l-4 border-purple-500 pl-4 py-2 relative group">
-                        <button onclick="deleteEvent(this)" class="absolute top-2 right-2 text-gray-400 hover:text-red-500 opacity-0 group-hover:opacity-100 transition">
-                            <i class="fa-solid fa-trash"></i>
-                        </button>
-                        <p class="text-xs text-gray-500">25 Juni 2024 • 10:00</p>
-                        <p class="font-bold text-gray-900">Basket Zone</p>
-                        <p class="text-sm text-gray-600">Lapangan 2 • 1 Jam</p>
-                    </div>
-                    <div class="border-l-4 border-blue-500 pl-4 py-2 relative group">
-                        <button onclick="deleteEvent(this)" class="absolute top-2 right-2 text-gray-400 hover:text-red-500 opacity-0 group-hover:opacity-100 transition">
-                            <i class="fa-solid fa-trash"></i>
-                        </button>
-                        <p class="text-xs text-gray-500">3 Juli 2024 • 18:00</p>
-                        <p class="font-bold text-gray-900">Victory Basketball</p>
-                        <p class="text-sm text-gray-600">Lapangan 3 • 2 Jam</p>
+                    <div>
+                        <p class="font-semibold">Lapangan Basket B</p>
+                        <p class="text-sm text-gray-500">14:00 - 15:00</p>
                     </div>
                 </div>
+                <div class="flex gap-2">
+                    <button onclick="alert('Edit booking')" class="bg-blue-600 text-white px-3 py-1 rounded hover:bg-blue-700 text-sm">Edit</button>
+                    <button onclick="if(confirm('Batalkan booking?')) { alert('Booking dibatalkan!'); this.closest('.flex').remove(); }" class="bg-red-600 text-white px-3 py-1 rounded hover:bg-red-700 text-sm">Batal</button>
+                </div>
             </div>
-        </div>
-    </main>
-</div>
 
-<!-- Modal Tambah Event -->
-<div id="addEventModal" class="hidden fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4">
-    <div class="bg-white rounded-2xl p-6 max-w-md w-full">
-        <h3 class="text-xl font-bold text-gray-900 mb-4">Tambah Event Baru</h3>
-        <div class="space-y-4">
-            <div>
-                <label class="block text-sm font-medium text-gray-700 mb-2">Nama Lapangan</label>
-                <input type="text" id="eventName" placeholder="Contoh: Giant Arena" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-orange-500">
+            <div class="flex items-center justify-between p-4 border border-gray-200 rounded-lg">
+                <div class="flex items-center gap-4">
+                    <div class="w-12 h-12 bg-orange-500 text-white rounded-lg flex flex-col items-center justify-center">
+                        <span class="text-xs">Jun</span>
+                        <span class="font-bold">25</span>
+                    </div>
+                    <div>
+                        <p class="font-semibold">Lapangan Basket C</p>
+                        <p class="text-sm text-gray-500">08:00 - 09:00</p>
+                    </div>
+                </div>
+                <div class="flex gap-2">
+                    <button onclick="alert('Edit booking')" class="bg-blue-600 text-white px-3 py-1 rounded hover:bg-blue-700 text-sm">Edit</button>
+                    <button onclick="if(confirm('Batalkan booking?')) { alert('Booking dibatalkan!'); this.closest('.flex').remove(); }" class="bg-red-600 text-white px-3 py-1 rounded hover:bg-red-700 text-sm">Batal</button>
+                </div>
             </div>
-            <div>
-                <label class="block text-sm font-medium text-gray-700 mb-2">Tanggal</label>
-                <input type="date" id="eventDate" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-orange-500">
-            </div>
-            <div>
-                <label class="block text-sm font-medium text-gray-700 mb-2">Waktu</label>
-                <input type="time" id="eventTime" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-orange-500">
-            </div>
-            <div>
-                <label class="block text-sm font-medium text-gray-700 mb-2">Durasi (Jam)</label>
-                <input type="number" id="eventDuration" min="1" value="2" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-orange-500">
-            </div>
-        </div>
-        <div class="flex gap-3 mt-6">
-            <button onclick="closeAddEventModal()" class="flex-1 px-4 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50">Batal</button>
-            <button onclick="saveEvent()" class="flex-1 px-4 py-2 bg-orange-500 text-white rounded-lg hover:bg-orange-600">Simpan</button>
         </div>
     </div>
 </div>
-
-<!-- Toast Notification -->
-<div id="toast" class="hidden fixed top-4 right-4 z-50 px-6 py-4 rounded-xl shadow-lg transform transition-all duration-300">
-    <div class="flex items-center gap-3">
-        <i id="toastIcon" class="fa-solid fa-check-circle text-2xl"></i>
-        <div>
-            <h4 id="toastTitle" class="font-bold text-white">Berhasil!</h4>
-            <p id="toastMessage" class="text-sm text-white/90">Event berhasil ditambahkan</p>
-        </div>
-    </div>
-</div>
-
-<script>
-const colors = ['orange', 'blue', 'green', 'purple', 'red', 'pink'];
-let colorIndex = 0;
-
-function openAddEventModal() {
-    document.getElementById('addEventModal').classList.remove('hidden');
-}
-
-function closeAddEventModal() {
-    document.getElementById('addEventModal').classList.add('hidden');
-    // Clear form
-    document.getElementById('eventName').value = '';
-    document.getElementById('eventDate').value = '';
-    document.getElementById('eventTime').value = '';
-    document.getElementById('eventDuration').value = '2';
-}
-
-function saveEvent() {
-    const name = document.getElementById('eventName').value;
-    const date = document.getElementById('eventDate').value;
-    const time = document.getElementById('eventTime').value;
-    const duration = document.getElementById('eventDuration').value;
-    
-    if (!name || !date || !time) {
-        showToast('error', 'Data Tidak Lengkap', 'Mohon lengkapi semua field');
-        return;
-    }
-    
-    // Format date
-    const dateObj = new Date(date);
-    const options = { day: 'numeric', month: 'long', year: 'numeric' };
-    const formattedDate = dateObj.toLocaleDateString('id-ID', options);
-    
-    // Add to events list
-    const eventsList = document.getElementById('eventsList');
-    const color = colors[colorIndex % colors.length];
-    colorIndex++;
-    
-    const newEvent = document.createElement('div');
-    newEvent.className = `border-l-4 border-${color}-500 pl-4 py-2 relative group`;
-    newEvent.innerHTML = `
-        <button onclick="deleteEvent(this)" class="absolute top-2 right-2 text-gray-400 hover:text-red-500 opacity-0 group-hover:opacity-100 transition">
-            <i class="fa-solid fa-trash"></i>
-        </button>
-        <p class="text-xs text-gray-500">${formattedDate} • ${time}</p>
-        <p class="font-bold text-gray-900">${name}</p>
-        <p class="text-sm text-gray-600">${duration} Jam</p>
-    `;
-    eventsList.insertBefore(newEvent, eventsList.firstChild);
-    
-    showToast('success', 'Event Ditambahkan', 'Event baru berhasil ditambahkan ke kalender');
-    closeAddEventModal();
-}
-
-function deleteEvent(btn) {
-    const event = btn.parentElement;
-    event.remove();
-    showToast('success', 'Event Dihapus', 'Event berhasil dihapus dari kalender');
-}
-
-function changeMonth(direction) {
-    // Simulasi ganti bulan
-    showToast('info', 'Bulan Berubah', 'Menampilkan kalender bulan baru');
-}
-
-function showToast(type, title, message) {
-    const toast = document.getElementById('toast');
-    const toastIcon = document.getElementById('toastIcon');
-    const toastTitle = document.getElementById('toastTitle');
-    const toastMessage = document.getElementById('toastMessage');
-    
-    if (type === 'success') {
-        toast.className = 'fixed top-4 right-4 z-50 px-6 py-4 rounded-xl shadow-lg transform transition-all duration-300 bg-green-500';
-        toastIcon.className = 'fa-solid fa-check-circle text-2xl text-white';
-    } else if (type === 'error') {
-        toast.className = 'fixed top-4 right-4 z-50 px-6 py-4 rounded-xl shadow-lg transform transition-all duration-300 bg-red-500';
-        toastIcon.className = 'fa-solid fa-xmark-circle text-2xl text-white';
-    } else if (type === 'info') {
-        toast.className = 'fixed top-4 right-4 z-50 px-6 py-4 rounded-xl shadow-lg transform transition-all duration-300 bg-blue-500';
-        toastIcon.className = 'fa-solid fa-info-circle text-2xl text-white';
-    }
-    
-    toastTitle.textContent = title;
-    toastMessage.textContent = message;
-    
-    toast.classList.remove('hidden');
-    setTimeout(() => {
-        toast.classList.add('hidden');
-    }, 3000);
-}
-
-// Generate calendar grid (simplified)
-const calendarGrid = document.getElementById('calendarGrid');
-for (let i = 0; i < 3; i++) {
-    calendarGrid.innerHTML += '<div class="aspect-square"></div>';
-}
-for (let i = 1; i <= 30; i++) {
-    const hasEvent = [3, 9, 15, 23, 25].includes(i);
-    const isToday = i === 23;
-    calendarGrid.innerHTML += `
-        <div class="aspect-square p-2 border ${isToday ? 'border-2 border-orange-500 bg-orange-50' : 'border-gray-200'} rounded-lg hover:bg-gray-50 cursor-pointer relative">
-            <span class="text-sm font-medium ${isToday ? 'text-orange-600 font-bold' : ''}">${i}</span>
-            ${hasEvent ? '<div class="mt-1 bg-orange-500 text-white text-xs px-1 py-0.5 rounded truncate">Event</div>' : ''}
-        </div>
-    `;
-}
-</script>
-</body>
-</html>
+@endsection
