@@ -12,37 +12,37 @@
                 <h3 class="text-xl font-bold mb-6">Pilih Metode Pembayaran</h3>
                 
                 <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-                    <div class="border-2 border-orange-500 rounded-xl p-4 text-center cursor-pointer bg-orange-50">
-                        <div class="text-3xl mb-2">🏦</div>
-                        <div class="font-semibold">BCA</div>
+                    <div class="border-2 border-orange-500 rounded-xl p-4 text-center cursor-pointer bg-orange-50 hover:shadow-lg transition">
+                        <div class="text-4xl mb-2">🏦</div>
+                        <div class="font-semibold text-gray-800">BCA</div>
                     </div>
-                    <div class="border-2 border-gray-200 rounded-xl p-4 text-center cursor-pointer hover:border-blue-500">
-                        <div class="text-3xl mb-2">🏦</div>
-                        <div class="font-semibold">Mandiri</div>
+                    <div class="border-2 border-gray-200 rounded-xl p-4 text-center cursor-pointer hover:border-blue-500 hover:shadow-lg transition">
+                        <div class="text-4xl mb-2"></div>
+                        <div class="font-semibold text-gray-800">Mandiri</div>
                     </div>
-                    <div class="border-2 border-gray-200 rounded-xl p-4 text-center cursor-pointer hover:border-red-500">
-                        <div class="text-3xl mb-2">🏦</div>
-                        <div class="font-semibold">BNI</div>
+                    <div class="border-2 border-gray-200 rounded-xl p-4 text-center cursor-pointer hover:border-red-500 hover:shadow-lg transition">
+                        <div class="text-4xl mb-2"></div>
+                        <div class="font-semibold text-gray-800">BNI</div>
                     </div>
-                    <div class="border-2 border-gray-200 rounded-xl p-4 text-center cursor-pointer hover:border-green-500">
-                        <div class="text-3xl mb-2">💚</div>
-                        <div class="font-semibold">GoPay</div>
+                    <div class="border-2 border-gray-200 rounded-xl p-4 text-center cursor-pointer hover:border-green-500 hover:shadow-lg transition">
+                        <div class="text-4xl mb-2">💚</div>
+                        <div class="font-semibold text-gray-800">GoPay</div>
                     </div>
-                    <div class="border-2 border-gray-200 rounded-xl p-4 text-center cursor-pointer hover:border-purple-500">
-                        <div class="text-3xl mb-2">💜</div>
-                        <div class="font-semibold">OVO</div>
+                    <div class="border-2 border-gray-200 rounded-xl p-4 text-center cursor-pointer hover:border-purple-500 hover:shadow-lg transition">
+                        <div class="text-4xl mb-2">💜</div>
+                        <div class="font-semibold text-gray-800">OVO</div>
                     </div>
-                    <div class="border-2 border-gray-200 rounded-xl p-4 text-center cursor-pointer hover:border-blue-500">
-                        <div class="text-3xl mb-2">💙</div>
-                        <div class="font-semibold">DANA</div>
+                    <div class="border-2 border-gray-200 rounded-xl p-4 text-center cursor-pointer hover:border-blue-500 hover:shadow-lg transition">
+                        <div class="text-4xl mb-2">💙</div>
+                        <div class="font-semibold text-gray-800">DANA</div>
                     </div>
-                    <div class="border-2 border-gray-200 rounded-xl p-4 text-center cursor-pointer hover:border-indigo-500">
-                        <div class="text-3xl mb-2">📱</div>
-                        <div class="font-semibold">QRIS</div>
+                    <div class="border-2 border-gray-200 rounded-xl p-4 text-center cursor-pointer hover:border-indigo-500 hover:shadow-lg transition">
+                        <div class="text-4xl mb-2">📱</div>
+                        <div class="font-semibold text-gray-800">QRIS</div>
                     </div>
-                    <div class="border-2 border-gray-200 rounded-xl p-4 text-center cursor-pointer hover:border-pink-500">
-                        <div class="text-3xl mb-2">💳</div>
-                        <div class="font-semibold">Kartu</div>
+                    <div class="border-2 border-gray-200 rounded-xl p-4 text-center cursor-pointer hover:border-pink-500 hover:shadow-lg transition">
+                        <div class="text-4xl mb-2"></div>
+                        <div class="font-semibold text-gray-800">Kartu</div>
                     </div>
                 </div>
             </div>
@@ -54,24 +54,24 @@
                 <div class="space-y-4">
                     <div>
                         <label class="block text-sm font-medium text-gray-700 mb-2">Lapangan</label>
-                        <select class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500">
+                        <select class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent">
                             <option>INSTIKI - Denpasar, Panjer</option>
                         </select>
                     </div>
 
                     <div>
                         <label class="block text-sm font-medium text-gray-700 mb-2">Nama Pemesan</label>
-                        <input type="text" value="{{ auth()->user()->name }}" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500">
+                        <input type="text" value="{{ auth()->user()->name }}" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent">
                     </div>
 
                     <div>
                         <label class="block text-sm font-medium text-gray-700 mb-2">Tanggal Booking</label>
-                        <input type="date" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500">
+                        <input type="date" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent">
                     </div>
 
                     <div>
                         <label class="block text-sm font-medium text-gray-700 mb-2">Jam</label>
-                        <select class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500">
+                        <select class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent">
                             <option>08:00 - 09:00</option>
                             <option>09:00 - 10:00</option>
                             <option>10:00 - 11:00</option>
