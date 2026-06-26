@@ -17,7 +17,7 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
     
-    // MENU SIDEBAR - SEMUA ROUTE
+    // SEMUA MENU SIDEBAR - PASTIKAN ADA SEMUA
     Route::get('/cari-lapangan', [HoopBookController::class, 'cari'])->name('cari.lapangan');
     Route::get('/booking-saya', [HoopBookController::class, 'bookingSaya'])->name('booking.saya');
     Route::get('/kalender', [HoopBookController::class, 'kalender'])->name('kalender');
