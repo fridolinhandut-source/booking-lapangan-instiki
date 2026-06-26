@@ -1,111 +1,127 @@
-<x-app-layout>
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Pembayaran') }}
-        </h2>
-    </x-slot>
+@extends('layout')
 
-    <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="p-6 text-gray-900">
-                    <h3 class="text-lg font-bold mb-6">Riwayat Pembayaran</h3>
-                    
-                    <div class="space-y-4">
-                        <!-- Pembayaran 1 -->
-                        <div class="border rounded-lg p-6 hover:shadow-lg transition">
-                            <div class="flex justify-between items-start mb-4">
-                                <div>
-                                    <h4 class="font-bold text-lg mb-1">Giant Arena Court</h4>
-                                    <p class="text-gray-600 text-sm">📅 25 Juni 2026 - 14:00-16:00 WIB</p>
-                                    <p class="text-gray-600 text-sm">Booking ID: #HBK-2026-001</p>
-                                </div>
-                                <span class="bg-green-100 text-green-800 px-4 py-2 rounded-full font-semibold">
-                                    ✓ Lunas
-                                </span>
-                            </div>
-                            <div class="flex justify-between items-center pt-4 border-t">
-                                <div>
-                                    <p class="text-gray-600 text-sm">Total Pembayaran</p>
-                                    <p class="text-2xl font-bold text-orange-600">Rp 300.000</p>
-                                </div>
-                                <button class="bg-orange-500 text-white px-6 py-2 rounded-lg hover:bg-orange-600 font-semibold">
-                                    Download Invoice
-                                </button>
-                            </div>
-                        </div>
+@section('title', 'Pembayaran')
+@section('page_title', 'Pembayaran')
 
-                        <!-- Pembayaran 2 -->
-                        <div class="border rounded-lg p-6 hover:shadow-lg transition">
-                            <div class="flex justify-between items-start mb-4">
-                                <div>
-                                    <h4 class="font-bold text-lg mb-1">Basket Zone</h4>
-                                    <p class="text-gray-600 text-sm">📅 27 Juni 2026 - 10:00-12:00 WIB</p>
-                                    <p class="text-gray-600 text-sm">Booking ID: #HBK-2026-002</p>
-                                </div>
-                                <span class="bg-yellow-100 text-yellow-800 px-4 py-2 rounded-full font-semibold">
-                                    ⏳ Menunggu Pembayaran
-                                </span>
-                            </div>
-                            <div class="flex justify-between items-center pt-4 border-t">
-                                <div>
-                                    <p class="text-gray-600 text-sm">Total Pembayaran</p>
-                                    <p class="text-2xl font-bold text-orange-600">Rp 240.000</p>
-                                </div>
-                                <button class="bg-orange-500 text-white px-6 py-2 rounded-lg hover:bg-orange-600 font-semibold">
-                                    Bayar Sekarang
-                                </button>
-                            </div>
-                        </div>
+@section('content')
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        <!-- Payment Methods -->
+        <div class="lg:col-span-2">
+            <div class="bg-white rounded-2xl shadow-sm p-6 mb-6">
+                <h3 class="text-xl font-bold mb-6">Pilih Metode Pembayaran</h3>
+                
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                    <div class="border-2 border-orange-500 rounded-xl p-4 text-center cursor-pointer bg-orange-50">
+                        <div class="text-3xl mb-2">🏦</div>
+                        <div class="font-semibold">BCA</div>
+                    </div>
+                    <div class="border-2 border-gray-200 rounded-xl p-4 text-center cursor-pointer hover:border-blue-500">
+                        <div class="text-3xl mb-2">🏦</div>
+                        <div class="font-semibold">Mandiri</div>
+                    </div>
+                    <div class="border-2 border-gray-200 rounded-xl p-4 text-center cursor-pointer hover:border-red-500">
+                        <div class="text-3xl mb-2">🏦</div>
+                        <div class="font-semibold">BNI</div>
+                    </div>
+                    <div class="border-2 border-gray-200 rounded-xl p-4 text-center cursor-pointer hover:border-green-500">
+                        <div class="text-3xl mb-2">💚</div>
+                        <div class="font-semibold">GoPay</div>
+                    </div>
+                    <div class="border-2 border-gray-200 rounded-xl p-4 text-center cursor-pointer hover:border-purple-500">
+                        <div class="text-3xl mb-2">💜</div>
+                        <div class="font-semibold">OVO</div>
+                    </div>
+                    <div class="border-2 border-gray-200 rounded-xl p-4 text-center cursor-pointer hover:border-blue-500">
+                        <div class="text-3xl mb-2">💙</div>
+                        <div class="font-semibold">DANA</div>
+                    </div>
+                    <div class="border-2 border-gray-200 rounded-xl p-4 text-center cursor-pointer hover:border-indigo-500">
+                        <div class="text-3xl mb-2">📱</div>
+                        <div class="font-semibold">QRIS</div>
+                    </div>
+                    <div class="border-2 border-gray-200 rounded-xl p-4 text-center cursor-pointer hover:border-pink-500">
+                        <div class="text-3xl mb-2">💳</div>
+                        <div class="font-semibold">Kartu</div>
+                    </div>
+                </div>
+            </div>
 
-                        <!-- Pembayaran 3 -->
-                        <div class="border rounded-lg p-6 hover:shadow-lg transition">
-                            <div class="flex justify-between items-start mb-4">
-                                <div>
-                                    <h4 class="font-bold text-lg mb-1">Champion Court</h4>
-                                    <p class="text-gray-600 text-sm">📅 15 Juni 2026 - 16:00-18:00 WIB</p>
-                                    <p class="text-gray-600 text-sm">Booking ID: #HBK-2026-000</p>
-                                </div>
-                                <span class="bg-gray-100 text-gray-800 px-4 py-2 rounded-full font-semibold">
-                                    Selesai
-                                </span>
-                            </div>
-                            <div class="flex justify-between items-center pt-4 border-t">
-                                <div>
-                                    <p class="text-gray-600 text-sm">Total Pembayaran</p>
-                                    <p class="text-2xl font-bold text-orange-600">Rp 360.000</p>
-                                </div>
-                                <button class="bg-gray-500 text-white px-6 py-2 rounded-lg hover:bg-gray-600 font-semibold">
-                                    Download Invoice
-                                </button>
-                            </div>
+            <!-- Payment Details -->
+            <div class="bg-white rounded-2xl shadow-sm p-6">
+                <h3 class="text-xl font-bold mb-6">Detail Pembayaran</h3>
+                
+                <div class="space-y-4">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Lapangan</label>
+                        <select class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500">
+                            <option>INSTIKI - Denpasar, Panjer</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Nama Pemesan</label>
+                        <input type="text" value="{{ auth()->user()->name }}" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500">
+                    </div>
+
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Tanggal Booking</label>
+                        <input type="date" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500">
+                    </div>
+
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Jam</label>
+                        <select class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500">
+                            <option>08:00 - 09:00</option>
+                            <option>09:00 - 10:00</option>
+                            <option>10:00 - 11:00</option>
+                        </select>
+                    </div>
+
+                    <div class="border-t pt-4 mt-4">
+                        <div class="flex justify-between items-center">
+                            <span class="text-lg font-semibold">Total Pembayaran</span>
+                            <span class="text-2xl font-bold text-orange-600">Rp 150.000</span>
                         </div>
                     </div>
 
-                    <!-- Metode Pembayaran Tersedia -->
-                    <div class="mt-8 p-6 bg-gray-50 rounded-lg">
-                        <h4 class="font-bold text-lg mb-4">Metode Pembayaran Tersedia</h4>
-                        <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-                            <div class="bg-white p-4 rounded-lg text-center border">
-                                <span class="text-3xl block mb-2">🏦</span>
-                                <p class="font-semibold">Transfer Bank</p>
+                    <button class="w-full bg-gradient-to-r from-orange-500 to-red-500 text-white font-semibold py-3 rounded-lg hover:shadow-lg transition duration-200">
+                        Bayar Sekarang
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Transaction History -->
+        <div>
+            <div class="bg-white rounded-2xl shadow-sm p-6">
+                <h3 class="text-xl font-bold mb-6">Riwayat Transaksi</h3>
+                
+                <div class="space-y-4">
+                    <div class="border-b pb-4">
+                        <div class="flex justify-between items-start mb-2">
+                            <div>
+                                <p class="font-semibold">INSTIKI - Denpasar, Panjer</p>
+                                <p class="text-sm text-gray-500">25/6/2026, 13:59:38</p>
                             </div>
-                            <div class="bg-white p-4 rounded-lg text-center border">
-                                <span class="text-3xl block mb-2">📱</span>
-                                <p class="font-semibold">E-Wallet</p>
-                            </div>
-                            <div class="bg-white p-4 rounded-lg text-center border">
-                                <span class="text-3xl block mb-2">💳</span>
-                                <p class="font-semibold">Kartu Kredit</p>
-                            </div>
-                            <div class="bg-white p-4 rounded-lg text-center border">
-                                <span class="text-3xl block mb-2">🏪</span>
-                                <p class="font-semibold">Alfamart/Indomaret</p>
-                            </div>
+                            <span class="bg-green-100 text-green-800 text-xs px-2 py-1 rounded-full">Berhasil</span>
                         </div>
+                        <p class="text-orange-600 font-bold">Rp 1.000</p>
+                    </div>
+
+                    <div class="border-b pb-4">
+                        <div class="flex justify-between items-start mb-2">
+                            <div>
+                                <p class="font-semibold">INSTIKI - Denpasar, Panjer</p>
+                                <p class="text-sm text-gray-500">25/6/2026, 13:37:40</p>
+                            </div>
+                            <span class="bg-green-100 text-green-800 text-xs px-2 py-1 rounded-full">Berhasil</span>
+                        </div>
+                        <p class="text-orange-600 font-bold">Rp 500.000</p>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</x-app-layout>
+</div>
+@endsection
