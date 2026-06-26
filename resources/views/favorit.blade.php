@@ -1,52 +1,52 @@
-<x-app-layout>
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Lapangan Favorit') }}
-        </h2>
-    </x-slot>
+@extends('layout')
 
-    <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="p-6 text-gray-900">
-                    <h3 class="text-lg font-bold mb-6">Lapangan Favorit Anda</h3>
-                    
-                    @if(isset($favorits) && $favorits->count() > 0)
-                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                            @foreach($favorits as $favorit)
-                            <div class="border rounded-lg overflow-hidden hover:shadow-xl transition">
-                                <div class="h-40 bg-gradient-to-br from-orange-400 to-red-500 flex items-center justify-center">
-                                    <span class="text-6xl">🏀</span>
-                                </div>
-                                <div class="p-4">
-                                    <h4 class="font-bold text-lg mb-2">{{ $favorit->name }}</h4>
-                                    <p class="text-gray-600 text-sm mb-2">📍 {{ $favorit->location }}</p>
-                                    <p class="text-orange-600 font-bold mb-3">Rp {{ number_format($favorit->price, 0, ',', '.') }}/jam</p>
-                                    
-                                    <div class="flex gap-2">
-                                        <a href="{{ route('booking') }}" class="flex-1 bg-orange-500 text-white text-center px-4 py-2 rounded hover:bg-orange-600 text-sm">
-                                            Booking
-                                        </a>
-                                        <button class="bg-red-100 text-red-600 px-4 py-2 rounded hover:bg-red-200 text-sm">
-                                            ❤️ Hapus
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                            @endforeach
-                        </div>
-                    @else
-                        <div class="text-center py-12">
-                            <span class="text-6xl block mb-4">❤️</span>
-                            <h4 class="text-xl font-semibold text-gray-700 mb-2">Belum Ada Lapangan Favorit</h4>
-                            <p class="text-gray-500 mb-6">Tambahkan lapangan favorit Anda untuk akses cepat</p>
-                            <a href="{{ route('cari.lapangan') }}" class="inline-block bg-orange-500 text-white px-6 py-3 rounded-lg hover:bg-orange-600 font-semibold">
-                                Cari Lapangan
-                            </a>
-                        </div>
-                    @endif
+@section('title', 'Favorit')
+@section('page_title', 'Lapangan Favorit')
+
+@section('content')
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    @if(session('success'))
+    <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded-lg mb-6">
+        ✓ {{ session('success') }}
+    </div>
+    @endif
+
+    <div class="bg-white rounded-2xl shadow-sm p-6">
+        <h3 class="text-xl font-bold mb-6 text-gray-900">Lapangan Favorit Saya</h3>
+        
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            @php
+            $favorits = [
+                ['id' => 1, 'nama' => 'Lapangan Basket A', 'lokasi' => 'Jakarta Selatan', 'harga' => 150000],
+                ['id' => 2, 'nama' => 'Lapangan Basket C', 'lokasi' => 'Jakarta Timur', 'harga' => 180000],
+            ];
+            @endphp
+
+            @foreach($favorits as $favorit)
+            <div class="border border-gray-200 rounded-xl p-6 relative">
+                <button class="absolute top-4 right-4 text-red-500 hover:text-red-700" onclick="if(confirm('Hapus dari favorit?')) {}">
+                    <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd" d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z" clip-rule="evenodd"/>
+                    </svg>
+                </button>
+                <div class="bg-gray-200 h-40 rounded-lg mb-4 flex items-center justify-center">
+                    <span class="text-gray-400">Foto {{ $favorit['nama'] }}</span>
                 </div>
+                <h4 class="font-bold text-lg mb-2">{{ $favorit['nama'] }}</h4>
+                <p class="text-gray-600 mb-2">📍 {{ $favorit['lokasi'] }}</p>
+                <p class="text-xl font-bold text-orange-600 mb-4">Rp {{ number_format($favorit['harga'], 0, ',', '.') }}<span class="text-sm text-gray-500">/jam</span></p>
+                <a href="{{ route('cari.lapangan') }}" class="block text-center bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 font-semibold">Booking Sekarang</a>
+            </div>
+            @endforeach
+
+            <div class="border-2 border-dashed border-gray-300 rounded-xl p-6 text-center flex flex-col justify-center items-center">
+                <svg class="w-12 h-12 text-gray-400 mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
+                </svg>
+                <p class="text-gray-500 mb-2">Tambahkan lapangan favorit</p>
+                <a href="{{ route('cari.lapangan') }}" class="text-blue-600 hover:text-blue-800 font-semibold">Cari Lapangan →</a>
             </div>
         </div>
     </div>
-</x-app-layout>
+</div>
+@endsection

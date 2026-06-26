@@ -1,110 +1,79 @@
-<x-app-layout>
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Promo & Diskon') }}
-        </h2>
-    </x-slot>
+@extends('layout')
 
-    <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="p-6 text-gray-900">
-                    <h3 class="text-lg font-bold mb-6">Promo Spesial Bulan Ini</h3>
-                    
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        <!-- Promo 1 -->
-                        <div class="bg-gradient-to-r from-orange-400 to-red-500 text-white p-8 rounded-lg shadow-lg hover:shadow-xl transition transform hover:scale-105">
-                            <div class="flex items-center justify-between mb-4">
-                                <span class="bg-white text-orange-600 px-4 py-1 rounded-full font-bold text-sm">
-                                    POPULER
-                                </span>
-                                <span class="text-4xl">🎉</span>
-                            </div>
-                            <h4 class="text-2xl font-bold mb-2">Diskon 20% Booking Pertama</h4>
-                            <p class="mb-4">Khusus untuk pengguna baru! Dapatkan diskon 20% untuk booking pertama Anda.</p>
-                            <div class="bg-white bg-opacity-20 p-4 rounded-lg mb-4">
-                                <p class="text-sm mb-1">Kode Promo:</p>
-                                <p class="text-2xl font-bold tracking-wider">NEWUSER20</p>
-                            </div>
-                            <p class="text-sm opacity-90">Berlaku sampai 30 Juni 2026</p>
-                        </div>
+@section('title', 'Promo')
+@section('page_title', 'Promo & Diskon')
 
-                        <!-- Promo 2 -->
-                        <div class="bg-gradient-to-r from-blue-400 to-purple-500 text-white p-8 rounded-lg shadow-lg hover:shadow-xl transition transform hover:scale-105">
-                            <div class="flex items-center justify-between mb-4">
-                                <span class="bg-white text-blue-600 px-4 py-1 rounded-full font-bold text-sm">
-                                    WEEKEND
-                                </span>
-                                <span class="text-4xl">🎁</span>
-                            </div>
-                            <h4 class="text-2xl font-bold mb-2">Cashback 10% Weekend</h4>
-                            <p class="mb-4">Booking di hari Sabtu atau Minggu, dapatkan cashback 10% untuk booking berikutnya.</p>
-                            <div class="bg-white bg-opacity-20 p-4 rounded-lg mb-4">
-                                <p class="text-sm mb-1">Kode Promo:</p>
-                                <p class="text-2xl font-bold tracking-wider">WEEKEND10</p>
-                            </div>
-                            <p class="text-sm opacity-90">Setiap hari Sabtu & Minggu</p>
-                        </div>
+@section('content')
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    @if(session('success'))
+    <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded-lg mb-6">
+        ✓ {{ session('success') }}
+    </div>
+    @endif
 
-                        <!-- Promo 3 -->
-                        <div class="bg-gradient-to-r from-green-400 to-teal-500 text-white p-8 rounded-lg shadow-lg hover:shadow-xl transition transform hover:scale-105">
-                            <div class="flex items-center justify-between mb-4">
-                                <span class="bg-white text-green-600 px-4 py-1 rounded-full font-bold text-sm">
-                                    HEMAT
-                                </span>
-                                <span class="text-4xl">💰</span>
-                            </div>
-                            <h4 class="text-2xl font-bold mb-2">Booking 3x Gratis 1x</h4>
-                            <p class="mb-4">Booking 3 kali dalam sebulan, dapatkan 1 jam gratis untuk booking ke-4!</p>
-                            <div class="bg-white bg-opacity-20 p-4 rounded-lg mb-4">
-                                <p class="text-sm mb-1">Kode Promo:</p>
-                                <p class="text-2xl font-bold tracking-wider">LOYAL3GET1</p>
-                            </div>
-                            <p class="text-sm opacity-90">Minimal booking 2 jam per transaksi</p>
-                        </div>
+    <div class="bg-white rounded-2xl shadow-sm p-6 mb-6">
+        <h3 class="text-xl font-bold mb-6 text-gray-900">Klaim Promo</h3>
+        
+        <form method="POST" action="{{ route('promo.claim') }}" class="mb-8">
+            @csrf
+            <div class="flex gap-4">
+                <input type="text" name="kode_promo" placeholder="Masukkan kode promo" required class="flex-1 px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500">
+                <button type="submit" class="bg-orange-600 text-white px-8 py-3 rounded-lg hover:bg-orange-700 font-semibold">Klaim</button>
+            </div>
+        </form>
 
-                        <!-- Promo 4 -->
-                        <div class="bg-gradient-to-r from-yellow-400 to-orange-500 text-white p-8 rounded-lg shadow-lg hover:shadow-xl transition transform hover:scale-105">
-                            <div class="flex items-center justify-between mb-4">
-                                <span class="bg-white text-yellow-600 px-4 py-1 rounded-full font-bold text-sm">
-                                    GROUP
-                                </span>
-                                <span class="text-4xl">👥</span>
-                            </div>
-                            <h4 class="text-2xl font-bold mb-2">Diskon Group 15%</h4>
-                            <p class="mb-4">Booking untuk 10 orang atau lebih? Dapatkan diskon 15% untuk semua lapangan!</p>
-                            <div class="bg-white bg-opacity-20 p-4 rounded-lg mb-4">
-                                <p class="text-sm mb-1">Kode Promo:</p>
-                                <p class="text-2xl font-bold tracking-wider">GROUP15</p>
-                            </div>
-                            <p class="text-sm opacity-90">Minimal 10 pemain, maksimal 20 pemain</p>
-                        </div>
-                    </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div class="bg-gradient-to-r from-orange-500 to-red-500 rounded-xl p-6 text-white">
+                <h4 class="text-2xl font-bold mb-2">Diskon 20%</h4>
+                <p class="mb-4">Untuk booking pertama kali! Minimal Rp 100.000</p>
+                <p class="text-sm opacity-90">Kode: PERTAMA20</p>
+                <form method="POST" action="{{ route('promo.use') }}" class="mt-4">
+                    @csrf
+                    <input type="hidden" name="kode" value="PERTAMA20">
+                    <button type="submit" class="bg-white text-orange-600 px-6 py-2 rounded-lg font-semibold hover:shadow-lg">Gunakan Promo</button>
+                </form>
+            </div>
 
-                    <!-- Cara Menggunakan Promo -->
-                    <div class="mt-8 p-6 bg-gray-50 rounded-lg">
-                        <h4 class="font-bold text-xl mb-4">Cara Menggunakan Kode Promo</h4>
-                        <ol class="space-y-3">
-                            <li class="flex items-start">
-                                <span class="bg-orange-500 text-white w-6 h-6 rounded-full flex items-center justify-center mr-3 flex-shrink-0">1</span>
-                                <span>Pilih lapangan dan waktu booking yang diinginkan</span>
-                            </li>
-                            <li class="flex items-start">
-                                <span class="bg-orange-500 text-white w-6 h-6 rounded-full flex items-center justify-center mr-3 flex-shrink-0">2</span>
-                                <span>Pada halaman pembayaran, masukkan kode promo di kolom yang tersedia</span>
-                            </li>
-                            <li class="flex items-start">
-                                <span class="bg-orange-500 text-white w-6 h-6 rounded-full flex items-center justify-center mr-3 flex-shrink-0">3</span>
-                                <span>Klik "Terapkan" untuk melihat diskon yang didapat</span>
-                            </li>
-                            <li class="flex items-start">
-                                <span class="bg-orange-500 text-white w-6 h-6 rounded-full flex items-center justify-center mr-3 flex-shrink-0">4</span>
-                                <span>Lanjutkan pembayaran dengan harga yang sudah didiskon</span>
-                            </li>
-                        </ol>
-                    </div>
-                </div>
+            <div class="bg-gradient-to-r from-blue-500 to-purple-500 rounded-xl p-6 text-white">
+                <h4 class="text-2xl font-bold mb-2">Weekend Special</h4>
+                <p class="mb-4">Diskon 15% setiap weekend! Berlaku Sabtu-Minggu</p>
+                <p class="text-sm opacity-90">Kode: WEEKEND15</p>
+                <form method="POST" action="{{ route('promo.use') }}" class="mt-4">
+                    @csrf
+                    <input type="hidden" name="kode" value="WEEKEND15">
+                    <button type="submit" class="bg-white text-blue-600 px-6 py-2 rounded-lg font-semibold hover:shadow-lg">Gunakan Promo</button>
+                </form>
+            </div>
+
+            <div class="bg-gradient-to-r from-green-500 to-teal-500 rounded-xl p-6 text-white">
+                <h4 class="text-2xl font-bold mb-2">Cashback Rp 50.000</h4>
+                <p class="mb-4">Minimal booking Rp 300.000</p>
+                <p class="text-sm opacity-90">Kode: CASHBACK50</p>
+                <form method="POST" action="{{ route('promo.use') }}" class="mt-4">
+                    @csrf
+                    <input type="hidden" name="kode" value="CASHBACK50">
+                    <button type="submit" class="bg-white text-green-600 px-6 py-2 rounded-lg font-semibold hover:shadow-lg">Gunakan Promo</button>
+                </form>
+            </div>
+
+            <div class="border-2 border-dashed border-gray-300 rounded-xl p-6 text-center">
+                <p class="text-gray-500 mb-2">Punya kode promo lain?</p>
+                <p class="text-sm text-gray-400">Masukkan di form di atas</p>
             </div>
         </div>
     </div>
-</x-app-layout>
+
+    <div class="bg-white rounded-2xl shadow-sm p-6">
+        <h3 class="text-xl font-bold mb-6 text-gray-900">Promo Saya</h3>
+        <div class="space-y-3">
+            <div class="flex justify-between items-center p-4 bg-gray-50 rounded-lg">
+                <div>
+                    <p class="font-semibold">Diskon 20% - PERTAMA20</p>
+                    <p class="text-sm text-gray-500">Berlaku sampai 31 Des 2026</p>
+                </div>
+                <button class="text-blue-600 hover:text-blue-800 font-semibold">Gunakan</button>
+            </div>
+        </div>
+    </div>
+</div>
+@endsection
