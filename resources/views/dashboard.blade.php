@@ -1,17 +1,16 @@
 @extends('layout')
 
-@section('title', 'Dashboard - Booking Lapangan')
+@section('title', 'Dashboard')
 @section('page_title', 'Dashboard')
 
 @section('content')
 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    <!-- Stats Cards -->
     <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
         <div class="bg-white p-6 rounded-2xl border border-gray-100 shadow-sm">
             <div class="flex items-center justify-between">
                 <div>
                     <p class="text-sm text-gray-500 mb-1">Total Booking</p>
-                    <h3 class="text-3xl font-bold text-gray-800">0</h3>
+                    <h3 class="text-3xl font-bold text-gray-900">0</h3>
                 </div>
                 <div class="w-14 h-14 bg-blue-100 rounded-xl flex items-center justify-center">
                     <svg class="w-7 h-7 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -25,7 +24,7 @@
             <div class="flex items-center justify-between">
                 <div>
                     <p class="text-sm text-gray-500 mb-1">Pendapatan</p>
-                    <h3 class="text-3xl font-bold text-gray-800">Rp 0</h3>
+                    <h3 class="text-3xl font-bold text-gray-900">Rp 0</h3>
                 </div>
                 <div class="w-14 h-14 bg-green-100 rounded-xl flex items-center justify-center">
                     <svg class="w-7 h-7 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -39,7 +38,7 @@
             <div class="flex items-center justify-between">
                 <div>
                     <p class="text-sm text-gray-500 mb-1">Pesanan Baru</p>
-                    <h3 class="text-3xl font-bold text-gray-800">0</h3>
+                    <h3 class="text-3xl font-bold text-gray-900">0</h3>
                 </div>
                 <div class="w-14 h-14 bg-yellow-100 rounded-xl flex items-center justify-center">
                     <svg class="w-7 h-7 text-yellow-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -53,7 +52,7 @@
             <div class="flex items-center justify-between">
                 <div>
                     <p class="text-sm text-gray-500 mb-1">Rating Rata-rata</p>
-                    <h3 class="text-3xl font-bold text-gray-800">0.0</h3>
+                    <h3 class="text-3xl font-bold text-gray-900">0.0</h3>
                 </div>
                 <div class="w-14 h-14 bg-purple-100 rounded-xl flex items-center justify-center">
                     <svg class="w-7 h-7 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -64,10 +63,9 @@
         </div>
     </div>
 
-    <!-- Welcome Message -->
     <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-        <div class="p-6 text-gray-900">
-            <h2 class="text-xl font-semibold mb-2">Selamat Datang di Sistem Booking Lapangan!</h2>
+        <div class="p-6">
+            <h2 class="text-xl font-semibold mb-2 text-gray-900">Selamat Datang di Sistem Booking Lapangan!</h2>
             <p class="text-gray-600">Gunakan menu di sidebar untuk mengelola booking lapangan basket Anda.</p>
         </div>
     </div>
