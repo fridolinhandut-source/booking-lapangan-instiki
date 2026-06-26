@@ -1,98 +1,156 @@
-@extends('layout')
-
-@section('title', 'Favorit')
-@section('page_title', 'Lapangan Favorit')
-
-@section('content')
-<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    <div id="notification-area"></div>
-
-    <div class="bg-white rounded-2xl shadow-sm p-6">
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <title>Favorit - INSTIKI Booking</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="bg-gray-100 font-sans">
+<div class="flex min-h-screen">
+    @include('layouts.sidebar')
+    <main class="flex-1 ml-64 p-8">
         <div class="flex justify-between items-center mb-6">
-            <h3 class="text-2xl font-bold text-gray-900">Lapangan Favorit Saya</h3>
-            <a href="{{ route('cari.lapangan') }}" class="bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 font-semibold">+ Tambah Favorit</a>
+            <h1 class="text-3xl font-bold text-gray-900">Lapangan Favorit</h1>
+            <button onclick="openAddFavorite()" class="px-6 py-3 bg-orange-500 text-white rounded-xl hover:bg-orange-600">
+                <i class="fa-solid fa-plus mr-2"></i>Tambah Lapangan
+            </button>
         </div>
         
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6" id="favorit-list">
-            <div class="favorit-item border-2 border-gray-200 rounded-xl p-6 relative hover:shadow-lg transition" data-id="1">
-                <button onclick="removeFavorit(1)" class="absolute top-4 right-4 text-red-500 hover:text-red-700 bg-white rounded-full p-2 shadow">
-                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
-                        <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"/>
-                    </svg>
-                </button>
-                <div class="bg-gradient-to-br from-orange-400 to-red-500 h-40 rounded-lg mb-4 flex items-center justify-center">
-                    <span class="text-white text-5xl">🏀</span>
-                </div>
-                <h4 class="font-bold text-lg mb-2">Lapangan Basket A</h4>
-                <p class="text-gray-600 mb-2">📍 Jakarta Selatan</p>
-                <p class="text-xl font-bold text-orange-600 mb-4">Rp 150.000<span class="text-sm text-gray-500">/jam</span></p>
-                <a href="{{ route('pembayaran') }}" class="block text-center bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 font-semibold">Booking Sekarang</a>
-            </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="favoriteGrid"></div>
 
-            <div class="favorit-item border-2 border-gray-200 rounded-xl p-6 relative hover:shadow-lg transition" data-id="2">
-                <button onclick="removeFavorit(2)" class="absolute top-4 right-4 text-red-500 hover:text-red-700 bg-white rounded-full p-2 shadow">
-                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
-                        <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"/>
-                    </svg>
-                </button>
-                <div class="bg-gradient-to-br from-green-400 to-teal-500 h-40 rounded-lg mb-4 flex items-center justify-center">
-                    <span class="text-white text-5xl"></span>
-                </div>
-                <h4 class="font-bold text-lg mb-2">Lapangan Basket C</h4>
-                <p class="text-gray-600 mb-2">📍 Jakarta Timur</p>
-                <p class="text-xl font-bold text-orange-600 mb-4">Rp 180.000<span class="text-sm text-gray-500">/jam</span></p>
-                <a href="{{ route('pembayaran') }}" class="block text-center bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 font-semibold">Booking Sekarang</a>
+        <div id="emptyState" class="hidden text-center py-16">
+            <i class="fa-regular fa-heart text-6xl text-gray-300 mb-4"></i>
+            <h3 class="text-xl font-bold text-gray-900 mb-2">Belum Ada Favorit</h3>
+            <p class="text-gray-500">Tambahkan lapangan favorit Anda</p>
+        </div>
+    </main>
+</div>
+
+<div id="addModal" class="hidden fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4">
+    <div class="bg-white rounded-2xl p-6 max-w-md w-full">
+        <h3 class="text-xl font-bold text-gray-900 mb-4">Tambah Lapangan Favorit</h3>
+        <div class="space-y-4">
+            <div>
+                <label class="block text-sm font-medium text-gray-700 mb-2">Nama Lapangan</label>
+                <input type="text" id="favName" value="INSTIKI" class="w-full px-4 py-2 border border-gray-300 rounded-lg">
+            </div>
+            <div>
+                <label class="block text-sm font-medium text-gray-700 mb-2">Lokasi</label>
+                <input type="text" id="favLocation" value="Denpasar, Panjer" class="w-full px-4 py-2 border border-gray-300 rounded-lg">
+            </div>
+            <div>
+                <label class="block text-sm font-medium text-gray-700 mb-2">Harga/Jam</label>
+                <input type="number" id="favPrice" value="250000" class="w-full px-4 py-2 border border-gray-300 rounded-lg">
             </div>
         </div>
-
-        <div id="empty-favorit" class="text-center py-12 hidden">
-            <svg class="w-16 h-16 text-gray-300 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
-            </svg>
-            <p class="text-gray-500 font-semibold">Belum ada lapangan favorit</p>
-            <a href="{{ route('cari.lapangan') }}" class="text-blue-600 hover:text-blue-800 font-semibold mt-2 inline-block">Cari Lapangan →</a>
+        <div class="flex gap-3 mt-6">
+            <button onclick="closeAddModal()" class="flex-1 px-4 py-2 border border-gray-300 rounded-lg">Batal</button>
+            <button onclick="saveFavorite()" class="flex-1 px-4 py-2 bg-orange-500 text-white rounded-lg">Simpan</button>
         </div>
     </div>
 </div>
 
+<div id="toast" class="hidden fixed top-4 right-4 z-50 px-6 py-4 rounded-xl shadow-lg bg-green-500 text-white">
+    <div class="flex items-center gap-3">
+        <div class="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center"><i id="toastIcon" class="fa-solid fa-check text-xl"></i></div>
+        <div><h4 id="toastTitle" class="font-bold">Berhasil!</h4><p id="toastMessage" class="text-sm"></p></div>
+    </div>
+</div>
+
 <script>
-function removeFavorit(id) {
-    if (confirm('Yakin ingin menghapus dari favorit?')) {
-        const item = document.querySelector(`[data-id="${id}"]`);
-        if (item) {
-            item.remove();
-            showNotification('️ Berhasil dihapus dari favorit!', 'success');
-            checkEmpty();
-        }
-    }
-}
+let favorites = JSON.parse(localStorage.getItem('favorites')) || [{id: 1, name: 'INSTIKI', location: 'Denpasar, Panjer', price: 250000, rating: 4.8}];
 
-function checkEmpty() {
-    const list = document.getElementById('favorit-list');
-    const empty = document.getElementById('empty-favorit');
-    if (list.children.length === 0) {
-        empty.classList.remove('hidden');
-    }
-}
-
-function showNotification(message, type) {
-    const area = document.getElementById('notification-area');
-    const notif = document.createElement('div');
-    const bgColor = type === 'success' ? 'bg-green-100 border-green-500 text-green-700' : 'bg-red-100 border-red-500 text-red-700';
-    const icon = type === 'success' 
-        ? '<path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>'
-        : '<path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd"/>';
+function renderFavorites() {
+    const grid = document.getElementById('favoriteGrid');
+    const empty = document.getElementById('emptyState');
     
-    notif.className = `${bgColor} border-2 px-6 py-4 rounded-lg mb-4 flex items-center justify-between shadow-lg`;
-    notif.innerHTML = `
-        <div class="flex items-center">
-            <svg class="w-8 h-8 mr-3" fill="currentColor" viewBox="0 0 20 20">${icon}</svg>
-            <p class="font-bold text-lg">${message}</p>
-        </div>
-        <button onclick="this.parentElement.remove()" class="text-2xl font-bold">✕</button>
-    `;
-    area.appendChild(notif);
-    setTimeout(() => notif.remove(), 3000);
+    if (favorites.length === 0) {
+        grid.innerHTML = '';
+        empty.classList.remove('hidden');
+        return;
+    }
+    
+    empty.classList.add('hidden');
+    grid.innerHTML = '';
+    
+    favorites.forEach(f => {
+        grid.innerHTML += `
+            <div class="bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-lg transition">
+                <div class="h-48 bg-gradient-to-br from-orange-400 to-orange-600 relative">
+                    <div class="absolute inset-0 flex items-center justify-center"><i class="fa-solid fa-basketball text-white text-8xl opacity-50"></i></div>
+                    <button onclick="removeFavorite(${f.id})" class="absolute top-4 right-4 w-10 h-10 bg-white rounded-full flex items-center justify-center text-red-500 hover:bg-red-50">
+                        <i class="fa-solid fa-heart"></i>
+                    </button>
+                </div>
+                <div class="p-5">
+                    <div class="flex justify-between items-start mb-2">
+                        <h3 class="font-bold text-xl text-gray-900">${f.name}</h3>
+                        <div class="flex items-center gap-1 bg-yellow-100 px-2 py-1 rounded-lg">
+                            <i class="fa-solid fa-star text-yellow-500 text-sm"></i><span class="font-bold text-sm">${f.rating}</span>
+                        </div>
+                    </div>
+                    <p class="text-gray-500 text-sm mb-3"><i class="fa-solid fa-location-dot mr-1"></i> ${f.location}</p>
+                    <div class="flex gap-2 mb-4">
+                        <span class="px-3 py-1 bg-gray-100 text-gray-600 rounded-lg text-xs">Indoor</span>
+                        <span class="px-3 py-1 bg-gray-100 text-gray-600 rounded-lg text-xs">AC</span>
+                    </div>
+                    <div class="flex justify-between items-center pt-4 border-t">
+                        <p class="text-orange-500 font-bold">Rp ${f.price.toLocaleString('id-ID')}<span class="text-sm text-gray-400 font-normal">/jam</span></p>
+                        <button class="px-4 py-2 bg-orange-500 text-white rounded-lg text-sm hover:bg-orange-600">Booking</button>
+                    </div>
+                </div>
+            </div>
+        `;
+    });
 }
+
+function openAddFavorite() {
+    document.getElementById('addModal').classList.remove('hidden');
+}
+
+function closeAddModal() {
+    document.getElementById('addModal').classList.add('hidden');
+}
+
+function saveFavorite() {
+    const name = document.getElementById('favName').value;
+    const location = document.getElementById('favLocation').value;
+    const price = parseInt(document.getElementById('favPrice').value);
+    
+    if (!name || !location || !price) {
+        showToast('error', 'Data Tidak Lengkap', 'Mohon lengkapi semua field');
+        return;
+    }
+    
+    favorites.push({id: Date.now(), name, location, price, rating: 4.8});
+    localStorage.setItem('favorites', JSON.stringify(favorites));
+    renderFavorites();
+    closeAddModal();
+    showToast('success', 'Lapangan Ditambahkan', 'Lapangan berhasil ditambahkan ke favorit');
+}
+
+function removeFavorite(id) {
+    if (confirm('Hapus dari favorit?')) {
+        favorites = favorites.filter(f => f.id !== id);
+        localStorage.setItem('favorites', JSON.stringify(favorites));
+        renderFavorites();
+        showToast('success', 'Dihapus dari Favorit', 'Lapangan dihapus dari favorit');
+    }
+}
+
+function showToast(type, title, msg) {
+    const toast = document.getElementById('toast');
+    const icon = document.getElementById('toastIcon');
+    toast.className = `fixed top-4 right-4 z-50 px-6 py-4 rounded-xl shadow-lg text-white ${type === 'success' ? 'bg-green-500' : 'bg-red-500'}`;
+    icon.className = type === 'success' ? 'fa-solid fa-check text-xl' : 'fa-solid fa-xmark text-xl';
+    document.getElementById('toastTitle').textContent = title;
+    document.getElementById('toastMessage').textContent = msg;
+    toast.classList.remove('hidden');
+    setTimeout(() => toast.classList.add('hidden'), 3000);
+}
+
+renderFavorites();
 </script>
-@endsection
+</body>
+</html>
