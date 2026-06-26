@@ -3,12 +3,12 @@
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
-// Halaman Login (default)
+// Redirect root ke login
 Route::get('/', function () {
     return redirect()->route('login');
 });
 
-// Dashboard & semua halaman butuh login
+// Semua halaman butuh login
 Route::middleware(['auth'])->group(function () {
     
     Route::get('/dashboard', function () {
