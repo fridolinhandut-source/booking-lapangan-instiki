@@ -19,8 +19,8 @@
                 <div class="bg-gradient-to-br from-orange-400 to-red-500 h-48 rounded-lg mb-4 flex items-center justify-center">
                     <span class="text-white text-6xl">🏀</span>
                 </div>
-                <h4 class="font-bold text-lg mb-2">Lapangan Basket A</h4>
-                <p class="text-gray-600 mb-2"> Jakarta Selatan</p>
+                <h4 class="font-bold text-lg mb-2">Lapangan Basket </h4>
+                <p class="text-gray-600 mb-2"> Denpasar panjer</p>
                 <p class="text-gray-600 mb-4">⭐ 4.8 (120 ulasan)</p>
                 <p class="text-2xl font-bold text-orange-600 mb-4">Rp 150.000<span class="text-sm text-gray-500">/jam</span></p>
                 <button onclick="addToFavorit('Lapangan Basket A')" class="w-full bg-pink-500 text-white py-2 rounded-lg hover:bg-pink-600 font-semibold mb-2">❤️ Tambah Favorit</button>
@@ -44,7 +44,7 @@
                     <span class="text-white text-6xl"></span>
                 </div>
                 <h4 class="font-bold text-lg mb-2">Lapangan Basket C</h4>
-                <p class="text-gray-600 mb-2">📍 Jakarta Timur</p>
+                <p class="text-gray-600 mb-2">📍 Denpasar panjer</p>
                 <p class="text-gray-600 mb-4">⭐ 4.9 (156 ulasan)</p>
                 <p class="text-2xl font-bold text-orange-600 mb-4">Rp 180.000<span class="text-sm text-gray-500">/jam</span></p>
                 <button onclick="addToFavorit('Lapangan Basket C')" class="w-full bg-pink-500 text-white py-2 rounded-lg hover:bg-pink-600 font-semibold mb-2">❤️ Tambah Favorit</button>
